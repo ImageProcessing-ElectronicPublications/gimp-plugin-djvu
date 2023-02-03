@@ -28,7 +28,7 @@
 #ifndef __INTERFACE_H__
 #define __INTERFACE_H__
 
-#include "ddjvuapi.h"
+#include <ddjvuapi.h>
 
 /*  Public functions  */
 

@@ -34,8 +34,7 @@
 # include <unistd.h>
 #endif
 
-#include "ddjvuapi.h"
-
+#include <ddjvuapi.h>
 
 int i;
 

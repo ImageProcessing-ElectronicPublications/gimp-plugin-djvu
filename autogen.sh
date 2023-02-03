@@ -13,7 +13,7 @@ TEST_TYPE=-f
 FILE=src/render.c
 
 AUTOCONF_REQUIRED_VERSION=2.54
-AUTOMAKE_REQUIRED_VERSION=1.6
+AUTOMAKE_REQUIRED_VERSION=1.10
 GLIB_REQUIRED_VERSION=2.0.0
 INTLTOOL_REQUIRED_VERSION=0.17
 
@@ -53,18 +53,9 @@ else
 fi
 
 echo -n "checking for automake >= $AUTOMAKE_REQUIRED_VERSION ... "
-if (automake-1.7 --version) < /dev/null > /dev/null 2>&1; then
-   AUTOMAKE=automake-1.7
-   ACLOCAL=aclocal-1.7
-elif (automake-1.8 --version) < /dev/null > /dev/null 2>&1; then
-   AUTOMAKE=automake-1.8
-   ACLOCAL=aclocal-1.8
-elif (automake-1.9 --version) < /dev/null > /dev/null 2>&1; then
-   AUTOMAKE=automake-1.9
-   ACLOCAL=aclocal-1.9
-elif (automake-1.6 --version) < /dev/null > /dev/null 2>&1; then
-   AUTOMAKE=automake-1.6
-   ACLOCAL=aclocal-1.6
+if (automake --version) < /dev/null > /dev/null 2>&1; then
+   AUTOMAKE=automake
+   ACLOCAL=aclocal
 else
     echo
     echo "  You must have automake 1.6 or newer installed to compile $PROJECT."
