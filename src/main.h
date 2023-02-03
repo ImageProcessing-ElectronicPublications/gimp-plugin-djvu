@@ -28,34 +28,34 @@
 #ifndef __MAIN_H__
 #define __MAIN_H__
 
-gint32          load_jeph (const gchar * filename, 
-                          GimpRunMode   runmode,
-                          gboolean      preview);
+gint32          load_jeph (const gchar * filename,
+                           GimpRunMode   runmode,
+                           gboolean      preview);
 
 GimpPDBStatusType write_jp2(const gchar * filename, gint          image_ID, gint          drawable_ID);
 
 typedef struct
 {
-  gint      dummy1;
-  gint      dummy2;
-  gint      dummy3;
-  guint     seed;
-  gboolean  random_seed;
+    gint      dummy1;
+    gint      dummy2;
+    gint      dummy3;
+    guint     seed;
+    gboolean  random_seed;
 } PlugInVals;
 
 typedef struct
 {
-  gint32    image_id;
+    gint32    image_id;
 } PlugInImageVals;
 
 typedef struct
 {
-  gint32    drawable_id;
+    gint32    drawable_id;
 } PlugInDrawableVals;
 
 typedef struct
 {
-  gboolean  chain_active;
+    gboolean  chain_active;
 } PlugInUIVals;
 
 

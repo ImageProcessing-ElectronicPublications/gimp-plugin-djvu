@@ -41,11 +41,11 @@
 
 void
 render (gint32              image_ID,
-	GimpDrawable       *drawable,
-	PlugInVals         *vals,
-	PlugInImageVals    *image_vals,
-	PlugInDrawableVals *drawable_vals)
+        GimpDrawable       *drawable,
+        PlugInVals         *vals,
+        PlugInImageVals    *image_vals,
+        PlugInDrawableVals *drawable_vals)
 {
-  g_message (_("This plug-in is just a dummy. "
-               "It has now finished doing nothing."));
+    g_message (_("This plug-in is just a dummy. "
+                 "It has now finished doing nothing."));
 }

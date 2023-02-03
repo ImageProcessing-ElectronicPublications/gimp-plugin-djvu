@@ -31,7 +31,7 @@
  * for any questions, comments, or bugs.  There can be a lot of
  * improvements to the code in terms of speed and memory usage
  * which I will concurently work on.  But any help will be greatly
- * appreciated.  Also, the UI is very basic and will be extended to 
+ * appreciated.  Also, the UI is very basic and will be extended to
  * enable more options .
  */
 
@@ -61,35 +61,39 @@
 
 static void query (void);
 static void run (const gchar * name,
-		 gint nparams,
-		 const GimpParam * param,
-		 gint * nreturn_vals, GimpParam ** return_vals);
+                 gint nparams,
+                 const GimpParam * param,
+                 gint * nreturn_vals, GimpParam ** return_vals);
 
 static void INIT_Il8N ();
 
 /*  Local variables  */
 
-const PlugInVals default_vals = {
-  0,
-  1,
-  2,
-  0,
-  FALSE
+const PlugInVals default_vals =
+{
+    0,
+    1,
+    2,
+    0,
+    FALSE
 };
 
-const PlugInImageVals default_image_vals = {
-  0
+const PlugInImageVals default_image_vals =
+{
+    0
 };
 
-const PlugInDrawableVals default_drawable_vals = {
-  0
+const PlugInDrawableVals default_drawable_vals =
+{
+    0
 };
 
-const PlugInUIVals default_ui_vals = {
-  TRUE
+const PlugInUIVals default_ui_vals =
+{
+    TRUE
 };
 
-/* 
+/*
 static PlugInVals         vals;
 static PlugInImageVals    image_vals;
 static PlugInDrawableVals drawable_vals;
@@ -97,79 +101,85 @@ static PlugInUIVals       ui_vals;
 */
 
 
-GimpPlugInInfo PLUG_IN_INFO = {
-  NULL,				/* init_proc  */
-  NULL,				/* quit_proc  */
-  query,			/* query_proc */
-  run,				/* run_proc   */
+GimpPlugInInfo PLUG_IN_INFO =
+{
+    NULL,				/* init_proc  */
+    NULL,				/* quit_proc  */
+    query,			/* query_proc */
+    run,				/* run_proc   */
 };
 
 MAIN ()
-     static void query (void)
+static void query (void)
 {
-  gchar *help_path;
-  gchar *help_uri;
+    gchar *help_path;
+    gchar *help_uri;
 
-  static GimpParamDef load_args[] = {
-    {GIMP_PDB_INT32, "run_mode", "Interactive, non-interactive"},
-    {GIMP_PDB_STRING, "filename", "The name of the file to load"},
-    {GIMP_PDB_STRING, "raw_filename", "The name of the file to load"},
-  };
+    static GimpParamDef load_args[] =
+    {
+        {GIMP_PDB_INT32, "run_mode", "Interactive, non-interactive"},
+        {GIMP_PDB_STRING, "filename", "The name of the file to load"},
+        {GIMP_PDB_STRING, "raw_filename", "The name of the file to load"},
+    };
 
-  static GimpParamDef load_return_vals[] = {
-    {GIMP_PDB_IMAGE, "image", "Output image"}
-  };
-  static GimpParamDef save_args[] = {
-    {GIMP_PDB_INT32, "run_mode", "Interactive, non-interactive"},
-    {GIMP_PDB_IMAGE, "image", "Input image"},
-    {GIMP_PDB_DRAWABLE, "drawable", "Drawable to save"},
-    {GIMP_PDB_STRING, "filename",
-     "The name of the file to save the image in"},
-    {GIMP_PDB_STRING, "raw_filename", "The name entered"},
-  };
+    static GimpParamDef load_return_vals[] =
+    {
+        {GIMP_PDB_IMAGE, "image", "Output image"}
+    };
+    static GimpParamDef save_args[] =
+    {
+        {GIMP_PDB_INT32, "run_mode", "Interactive, non-interactive"},
+        {GIMP_PDB_IMAGE, "image", "Input image"},
+        {GIMP_PDB_DRAWABLE, "drawable", "Drawable to save"},
+        {
+            GIMP_PDB_STRING, "filename",
+            "The name of the file to save the image in"
+        },
+        {GIMP_PDB_STRING, "raw_filename", "The name entered"},
+    };
 
 
 
-  gimp_plugin_domain_register (PLUGIN_NAME, LOCALEDIR);
+    gimp_plugin_domain_register (PLUGIN_NAME, LOCALEDIR);
 
-  help_path = g_build_filename (DATADIR, "help", NULL);
-  help_uri = g_filename_to_uri (help_path, NULL, NULL);
-  g_free (help_path);
+    help_path = g_build_filename (DATADIR, "help", NULL);
+    help_uri = g_filename_to_uri (help_path, NULL, NULL);
+    g_free (help_path);
 
-  gimp_plugin_help_register
+    gimp_plugin_help_register
     ("http://developer.gimp.org/plug-in-template/help", help_uri);
 
-  gimp_install_procedure (PROCEDURE_NAME,
-			  "loads files in the djvu file format",
-			  "loads files in the djvu file format",
-			  "Jeph Paul",
-			  "Jeph Paul",
-			  "2006-2010",
-			  N_("Djvu Document"),
-			  NULL,
-			  GIMP_PLUGIN,
-			  G_N_ELEMENTS (load_args),
-			  G_N_ELEMENTS (load_return_vals),
-			  load_args, load_return_vals);
+    gimp_install_procedure (PROCEDURE_NAME,
+                            "loads files in the djvu file format",
+                            "loads files in the djvu file format",
+                            "Jeph Paul",
+                            "Jeph Paul",
+                            "2006-2010",
+                            N_("Djvu Document"),
+                            NULL,
+                            GIMP_PLUGIN,
+                            G_N_ELEMENTS (load_args),
+                            G_N_ELEMENTS (load_return_vals),
+                            load_args, load_return_vals);
 
-  gimp_register_file_handler_mime (PROCEDURE_NAME, "image/djvu");
-  gimp_register_magic_load_handler (PROCEDURE_NAME, "djvu", "", "");
- /*
+    gimp_register_file_handler_mime (PROCEDURE_NAME, "image/djvu");
+    gimp_register_magic_load_handler (PROCEDURE_NAME, "djvu", "", "");
+    /*
 
-  gimp_install_procedure (PROCEDURE_NAME_SAVE,
-			  "saves files in the djvu file format",
-			  "saves files in the djvu file format",
-			  "Jeph Paul",
-			  "Jeph Paul",
-			  "2006-2010",
-			  N_("Djvu document"),
-			  "GRAY, RGB",
-			  GIMP_PLUGIN,
-			  G_N_ELEMENTS (save_args), 0, save_args, NULL);
+     gimp_install_procedure (PROCEDURE_NAME_SAVE,
+    		  "saves files in the djvu file format",
+    		  "saves files in the djvu file format",
+    		  "Jeph Paul",
+    		  "Jeph Paul",
+    		  "2006-2010",
+    		  N_("Djvu document"),
+    		  "GRAY, RGB",
+    		  GIMP_PLUGIN,
+    		  G_N_ELEMENTS (save_args), 0, save_args, NULL);
 
-  gimp_register_file_handler_mime (PROCEDURE_NAME_SAVE, "image/jp2");
-  gimp_register_save_handler (PROCEDURE_NAME_SAVE, "jp2,j2k", "");
-  */
+     gimp_register_file_handler_mime (PROCEDURE_NAME_SAVE, "image/jp2");
+     gimp_register_save_handler (PROCEDURE_NAME_SAVE, "jp2,j2k", "");
+     */
 }
 
 static void
@@ -177,52 +187,52 @@ run (const gchar * name,
      gint n_params,
      const GimpParam * param, gint * nreturn_vals, GimpParam ** return_vals)
 {
-  static GimpParam values[1];
-  GimpRunMode run_mode;
-  GimpPDBStatusType status = GIMP_PDB_SUCCESS;
+    static GimpParam values[1];
+    GimpRunMode run_mode;
+    GimpPDBStatusType status = GIMP_PDB_SUCCESS;
 
-  gint32 image_ID;
-  gint32 drawable_ID;
+    gint32 image_ID;
+    gint32 drawable_ID;
 
-  run_mode = param[0].data.d_int32;	
-  *nreturn_vals = 1;
-  *return_vals = values;
-  values[0].type = GIMP_PDB_STATUS;
-  values[0].data.d_status = GIMP_PDB_EXECUTION_ERROR;
+    run_mode = param[0].data.d_int32;
+    *nreturn_vals = 1;
+    *return_vals = values;
+    values[0].type = GIMP_PDB_STATUS;
+    values[0].data.d_status = GIMP_PDB_EXECUTION_ERROR;
 
-  if (strcmp (name, PROCEDURE_NAME) == 0)
+    if (strcmp (name, PROCEDURE_NAME) == 0)
     {
-      INIT_Il8N ();
-      image_ID = load_djvu (param[1].data.d_string, run_mode, FALSE);
+        INIT_Il8N ();
+        image_ID = load_djvu (param[1].data.d_string, run_mode, FALSE);
 
-      if (image_ID != -1)
-	{
-	  *nreturn_vals = 2;
-	  values[1].type = GIMP_PDB_IMAGE;
-	  values[1].data.d_image = image_ID;
-	}
-      else
-	{
-	  printf ("did not open image");
-	  status = GIMP_PDB_EXECUTION_ERROR;
-	}
+        if (image_ID != -1)
+        {
+            *nreturn_vals = 2;
+            values[1].type = GIMP_PDB_IMAGE;
+            values[1].data.d_image = image_ID;
+        }
+        else
+        {
+            printf ("did not open image");
+            status = GIMP_PDB_EXECUTION_ERROR;
+        }
     }
-/*
-  else if (strcmp (name, PROCEDURE_NAME_SAVE) == 0)
-    {
-      image_ID = param[1].data.d_int32;
-      drawable_ID = param[2].data.d_int32;
-     // status = write_djvu(param[3].data.d_string, image_ID, drawable_ID);
-    }
-*/
-  values[0].data.d_status = status;
+    /*
+      else if (strcmp (name, PROCEDURE_NAME_SAVE) == 0)
+        {
+          image_ID = param[1].data.d_int32;
+          drawable_ID = param[2].data.d_int32;
+         // status = write_djvu(param[3].data.d_string, image_ID, drawable_ID);
+        }
+    */
+    values[0].data.d_status = status;
 }
 
 INIT_Il8N ()
 {
-  bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
+    bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
 #ifdef HAVE_BIND_TEXTDOMAIN_CODESET
-  bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+    bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 #endif
-  textdomain (GETTEXT_PACKAGE);
+    textdomain (GETTEXT_PACKAGE);
 }

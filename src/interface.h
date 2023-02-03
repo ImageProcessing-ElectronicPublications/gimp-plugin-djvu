@@ -32,6 +32,6 @@
 
 /*  Public functions  */
 
-gboolean   dialog (gint * pageno , gint total_pages);
+gint dialog (gint pageno, gint total_pages);
 
 #endif /* __INTERFACE_H__ */
